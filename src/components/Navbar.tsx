@@ -20,7 +20,7 @@ export function Navbar() {
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
-    const onResize = () => window.innerWidth >= 1024 && setOpen(false)
+    const onResize = () => window.innerWidth >= 1280 && setOpen(false)
     document.addEventListener('keydown', onKey)
     window.addEventListener('resize', onResize)
     document.body.style.overflow = 'hidden'
@@ -50,16 +50,17 @@ export function Navbar() {
           <Logo />
         </a>
 
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="hidden items-center gap-0.5 xl:flex">
           {SECTION_IDS.map((id) => (
             <li key={id}>
               <a
                 href={`#${id}`}
                 aria-current={active === id ? 'true' : undefined}
-                className={`relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${
+                className={`relative inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition-colors ${
                   active === id ? 'text-fg' : 'text-muted hover:text-fg'
                 }`}
               >
+                {id === 'denticab' && <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent)]" />}
                 {active === id && (
                   <motion.span
                     layoutId="nav-active"
@@ -80,7 +81,7 @@ export function Navbar() {
           <ThemeToggle />
           <button
             type="button"
-            className="grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-line-strong bg-card text-fg lg:hidden"
+            className="grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-line-strong bg-card text-fg xl:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
@@ -99,7 +100,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-line bg-bg/95 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-t border-line bg-bg/95 backdrop-blur-xl xl:hidden"
           >
             <div className="container-x flex h-[calc(100svh-72px)] flex-col gap-1 overflow-y-auto py-6">
               {SECTION_IDS.map((id, i) => (

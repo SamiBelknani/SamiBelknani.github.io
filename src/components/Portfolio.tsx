@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Check, Code2, ExternalLink, ImageIcon, Lock, RadioTower, ShoppingCart, Stethoscope, Users, UtensilsCrossed } from 'lucide-react'
+import { Check, Code2, ExternalLink, ImageIcon, Lock, PlayCircle, RadioTower, ShoppingCart, Stethoscope, Users, UtensilsCrossed } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { projects, type CoverIcon, type Project, type ProjectCategory } from '../config/projects'
 import { useI18n } from '../i18n/context'
@@ -108,13 +108,19 @@ function ProjectCard({ project: p, index, featured = false }: { project: Project
           ))}
         </ul>
         <div className="mt-auto flex flex-wrap items-center gap-3 pt-6">
-          {p.demo && (
-            <a href={p.demo} target="_blank" rel="noopener noreferrer" className="btn btn-primary min-h-10 px-4 text-sm">
-              <ExternalLink size={16} aria-hidden />
-              {t.portfolio.demo}
-              <span className="sr-only">({t.ui.newTab})</span>
-            </a>
-          )}
+          {p.demo &&
+            (p.demo.startsWith('#') ? (
+              <a href={p.demo} className="btn btn-primary min-h-10 px-4 text-sm">
+                <PlayCircle size={16} aria-hidden />
+                {t.portfolio.demo}
+              </a>
+            ) : (
+              <a href={p.demo} target="_blank" rel="noopener noreferrer" className="btn btn-primary min-h-10 px-4 text-sm">
+                <ExternalLink size={16} aria-hidden />
+                {t.portfolio.demo}
+                <span className="sr-only">({t.ui.newTab})</span>
+              </a>
+            ))}
           {p.github && (
             <a href={p.github} target="_blank" rel="noopener noreferrer" className="btn btn-ghost min-h-10 px-4 text-sm">
               <GitHubIcon size={16} />

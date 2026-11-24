@@ -65,5 +65,15 @@ export function mailtoLink(subject: string, lines: string[]): string {
   return `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
 }
 
+/** Événement envoyé pour pré-remplir le formulaire de contact (ex. demande de démo DentiCab Pro). */
+export const PREFILL_EVENT = 'contact:prefill'
+export type Prefill = Partial<Pick<ContactPayload, 'projectType' | 'message'>>
+
+/** Pré-remplit le formulaire puis fait défiler jusqu'à la section Contact. */
+export function prefillContact(data: Prefill): void {
+  window.dispatchEvent(new CustomEvent<Prefill>(PREFILL_EVENT, { detail: data }))
+  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
 export const whatsappLink = (text?: string) =>
   `https://wa.me/${profile.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ''}`

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, Mail, MapPin, Monitor, Phone, Smartphone, Globe } from 'lucide-react'
+import { ArrowRight, Globe, Mail, MapPin, Monitor, Phone, Smartphone, Sparkles } from 'lucide-react'
 import { profile } from '../config/profile'
 import { useI18n } from '../i18n/context'
 import { EASE, fadeUp, stagger } from '../lib/motion'
@@ -14,7 +14,7 @@ export function Hero() {
       <div aria-hidden className="pointer-events-none absolute top-1/3 -end-40 -z-10 h-[26rem] w-[26rem] rounded-full bg-cyan-400/15 blur-[110px]" />
 
       <div className="container-x grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
-        <motion.div variants={stagger(0.09)} initial="hidden" animate="show">
+        <motion.div variants={stagger(0.09)} initial="hidden" animate="show" className="min-w-0">
           <motion.p variants={fadeUp} className="glass inline-flex items-center gap-2.5 rounded-full py-1.5 ps-2 pe-4 text-sm font-medium text-fg-2">
             <span className="relative grid h-5 w-5 place-items-center rounded-full bg-emerald-500/15">
               <span className="animate-pulse-dot h-2 w-2 rounded-full bg-emerald-500" />
@@ -48,7 +48,19 @@ export function Hero() {
             </a>
           </motion.div>
 
-          <motion.ul variants={fadeUp} className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-muted">
+          <motion.a
+            variants={fadeUp}
+            href="#denticab"
+            className="group mt-6 inline-flex max-w-full items-center gap-2.5 rounded-full border border-accent/30 bg-accent/10 py-1.5 ps-1.5 pe-4 text-sm font-medium text-fg-2 transition-colors hover:border-accent/60 hover:text-fg"
+          >
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gradient-to-br from-primary-2 to-cyan-500 text-white">
+              <Sparkles size={14} aria-hidden />
+            </span>
+            <span className="truncate">{t.denticab.teaser}</span>
+            <ArrowRight size={15} aria-hidden className="shrink-0 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+          </motion.a>
+
+          <motion.ul variants={fadeUp} className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-muted">
             <li>
               <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 transition-colors hover:text-fg">
                 <Mail size={16} aria-hidden className="text-accent" />

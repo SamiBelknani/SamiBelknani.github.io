@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { CheckCircle2, Loader2, Mail, MapPin, Phone, Send, TriangleAlert } from 'lucide-react'
-import { useId, useState, type FormEvent, type ReactNode } from 'react'
+import { useEffect, useId, useState, type FormEvent, type ReactNode } from 'react'
 import { contactEndpoint, profile } from '../config/profile'
 import { useI18n } from '../i18n/context'
-import { LIMITS, clean, mailtoLink, sendToEndpoint, validate, whatsappLink, type ContactField, type ContactPayload, type ErrorKey } from '../lib/contact'
+import { LIMITS, PREFILL_EVENT, clean, mailtoLink, sendToEndpoint, validate, whatsappLink, type ContactField, type ContactPayload, type ErrorKey, type Prefill } from '../lib/contact'
 import { fadeUp, inView, stagger } from '../lib/motion'
 import { WhatsAppIcon } from './ui/BrandIcons'
 import { SectionHeader } from './ui/SectionHeader'
@@ -110,6 +110,22 @@ function ContactForm() {
   const [status, setStatus] = useState<Status>('idle')
   const [honeypot, setHoneypot] = useState('')
   const hasEndpoint = contactEndpoint.length > 0
+
+  // pré-remplissage demandé par un autre bloc du site (ex. « Demander une démo » de DentiCab Pro)
+  useEffect(() => {
+    const onPrefill = (e: Event) => {
+      const detail = (e as CustomEvent<Prefill>).detail ?? {}
+      setData((d) => ({
+        ...d,
+        projectType: detail.projectType ?? d.projectType,
+        message: d.message.trim() ? d.message : (detail.message ?? d.message),
+      }))
+      setStatus('idle')
+      window.setTimeout(() => document.getElementById(`${uid}-name`)?.focus({ preventScroll: true }), 700)
+    }
+    window.addEventListener(PREFILL_EVENT, onPrefill)
+    return () => window.removeEventListener(PREFILL_EVENT, onPrefill)
+  }, [uid])
 
   const set = (field: ContactField, value: string) => {
     const next = { ...data, [field]: value }

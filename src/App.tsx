@@ -2,6 +2,7 @@ import { MotionConfig } from 'framer-motion'
 import { About } from './components/About'
 import { BackToTop } from './components/BackToTop'
 import { Contact } from './components/Contact'
+import { DentiCab } from './components/DentiCab'
 import { FloatingWhatsApp } from './components/FloatingWhatsApp'
 import { Footer } from './components/Footer'
 import { Hero } from './components/Hero'
@@ -19,6 +20,7 @@ export default function App() {
       <main id="main" tabIndex={-1} className="overflow-x-clip outline-none">
         <Hero />
         <About />
+        <DentiCab />
         <Services />
         <Portfolio />
         <Skills />
