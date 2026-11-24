@@ -83,7 +83,7 @@ function ProjectCard({ project: p, index, featured = false }: { project: Project
       transition={{ duration: 0.55, ease: EASE, delay: (index % 3) * 0.07 }}
       className={`card card-hover group flex flex-col overflow-hidden ${featured ? 'md:col-span-2 md:grid md:grid-cols-[1.05fr_1fr]' : ''}`}
     >
-      <ProjectCover project={p} featured={featured} onOpen={gallery.length ? () => setZoom(0) : undefined} galleryLabel={t.portfolio.gallery} />
+      <ProjectCover project={p} featured={featured} gallery={gallery} onOpen={gallery.length ? (i) => setZoom(i) : undefined} galleryLabel={t.portfolio.gallery} />
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-start justify-between gap-3">
           <h3 className="font-display text-xl font-semibold">{p.title}</h3>
@@ -161,33 +161,68 @@ function ProjectCard({ project: p, index, featured = false }: { project: Project
   )
 }
 
-function ProjectCover(props: { project: Project; featured?: boolean; onOpen?: () => void; galleryLabel: string }) {
-  const { project: p, featured = false, onOpen, galleryLabel } = props
+function ProjectCover(props: {
+  project: Project
+  featured?: boolean
+  gallery?: { src: string; caption: string }[]
+  onOpen?: (index: number) => void
+  galleryLabel: string
+}) {
+  const { project: p, featured = false, gallery = [], onOpen, galleryLabel } = props
   const { t } = useI18n()
   const Icon = COVER_ICONS[p.cover.icon]
   if (p.image) {
-    const img = (
-      <img
-        src={p.image}
-        alt={p.title}
-        loading="lazy"
-        decoding="async"
-        className={`h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04] ${
-          featured ? 'md:aspect-[16/10] md:h-auto md:rounded-xl md:shadow-[0_24px_50px_-20px_rgba(0,0,0,0.6)] md:ring-1 md:ring-white/10' : ''
-        }`}
-      />
+    const badge = (
+      <span className="absolute end-3 bottom-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur">
+        <Images size={12} aria-hidden />
+        {galleryLabel}
+      </span>
     )
-    // carte mise en avant : capture entière encadrée (sans rognage) sur un fond dégradé
-    const box = `relative block aspect-[16/10] w-full overflow-hidden border-b border-line bg-bg-soft ${
-      featured ? 'md:flex md:aspect-auto md:h-full md:min-h-80 md:items-center md:border-e md:border-b-0 md:p-6 md:[background:linear-gradient(135deg,#1d4ed8,#0891b2)]' : ''
-    }`
+    // carte mise en avant avec galerie : grande capture + miniatures, sur un fond dégradé (grand écran)
+    if (featured && onOpen && gallery.length > 1) {
+      const thumbs = gallery.slice(1, 4)
+      return (
+        <div className="relative border-b border-line md:flex md:flex-col md:gap-3 md:border-e md:border-b-0 md:p-6 md:pt-8 md:[background:linear-gradient(135deg,#1d4ed8,#0891b2)]">
+          <button
+            type="button"
+            onClick={() => onOpen(0)}
+            aria-label={`${galleryLabel} — ${p.title}`}
+            className="relative block aspect-[16/10] w-full cursor-zoom-in overflow-hidden bg-bg-soft md:rounded-xl md:shadow-[0_24px_50px_-20px_rgba(0,0,0,0.6)] md:ring-1 md:ring-white/10"
+          >
+            <img src={p.image} alt={p.title} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" />
+            {badge}
+          </button>
+          <ul className="hidden grid-cols-3 gap-3 md:grid">
+            {thumbs.map((g, i) => (
+              <li key={g.src}>
+                <button
+                  type="button"
+                  onClick={() => onOpen(i + 1)}
+                  title={g.caption}
+                  aria-label={g.caption}
+                  className="relative block aspect-[16/10] w-full cursor-zoom-in overflow-hidden rounded-lg ring-1 ring-white/20 transition hover:ring-2 hover:ring-white/70"
+                >
+                  <img src={g.src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
+                  {i === thumbs.length - 1 && gallery.length > 4 && (
+                    <span className="absolute inset-0 grid place-items-center bg-black/55 text-sm font-semibold text-white" dir="ltr">
+                      +{gallery.length - 4}
+                    </span>
+                  )}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    const img = (
+      <img src={p.image} alt={p.title} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]" />
+    )
+    const box = `relative block aspect-[16/10] w-full overflow-hidden border-b border-line bg-bg-soft ${featured ? 'md:aspect-auto md:h-full md:min-h-80 md:border-e md:border-b-0' : ''}`
     return onOpen ? (
-      <button type="button" onClick={onOpen} aria-label={`${galleryLabel} — ${p.title}`} className={`${box} cursor-zoom-in`}>
+      <button type="button" onClick={() => onOpen(0)} aria-label={`${galleryLabel} — ${p.title}`} className={`${box} cursor-zoom-in`}>
         {img}
-        <span className="absolute end-3 bottom-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur">
-          <Images size={12} aria-hidden />
-          {galleryLabel}
-        </span>
+        {badge}
       </button>
     ) : (
       <div className={box}>{img}</div>
