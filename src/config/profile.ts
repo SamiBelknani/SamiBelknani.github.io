@@ -44,7 +44,7 @@ export const profile = {
    */
   socials: {
     github: '',
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/in/mohamed-sami-belknani',
     facebook: '',
   },
 

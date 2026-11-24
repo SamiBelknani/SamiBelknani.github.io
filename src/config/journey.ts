@@ -10,7 +10,7 @@ export interface JourneyItem {
 /** Parcours (formations, certifications et expériences), du plus récent au plus ancien. */
 export const journey: JourneyItem[] = [
   {
-    period: '2025 – 2026',
+    period: '2024 – 2026',
     kind: 'education',
     title: {
       fr: "Diplôme National d'Ingénieur en Génie Informatique (Génie Logiciel)",
