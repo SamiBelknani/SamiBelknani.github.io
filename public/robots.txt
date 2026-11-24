@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://samibelknani.github.io/sitemap.xml

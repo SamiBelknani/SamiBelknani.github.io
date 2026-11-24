@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr" dir="ltr" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Mohamed Sami Belknani · Ingénieur logiciel Full Stack Web &amp; Mobile</title>
+    <meta
+      name="description"
+      content="Ingénieur en génie informatique spécialisé en développement Web, Mobile et Desktop. Applications sur mesure, de la conception au déploiement. Basé en Tunisie."
+    />
+    <meta name="author" content="Mohamed Sami Belknani" />
+    <meta name="theme-color" content="#050a18" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="canonical" href="https://samibelknani.github.io/" />
+
+    <!-- Open Graph / réseaux sociaux -->
+    <meta property="og:url" content="https://samibelknani.github.io/" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="Mohamed Sami Belknani · Software Engineer" />
+    <meta property="og:description" content="Full Stack Web & Mobile Developer · applications web, mobiles et desktop sur mesure. Tunisie." />
+    <meta property="og:image" content="https://samibelknani.github.io/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_TN" />
+    <meta property="profile:first_name" content="Mohamed Sami" />
+    <meta property="profile:last_name" content="Belknani" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mohamed Sami Belknani",
+        "url": "https://samibelknani.github.io/",
+        "alternateName": "محمد سامي بالكناني",
+        "jobTitle": "Software Engineer · Full Stack Web & Mobile Developer",
+        "email": "mailto:samikneni89@gmail.com",
+        "telephone": "+216 21 650 382",
+        "address": { "@type": "PostalAddress", "addressCountry": "TN" },
+        "knowsLanguage": ["fr", "en", "ar"],
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Polytech Monastir" },
+        "knowsAbout": ["Web development", "Mobile development", "Angular", "React", "Spring Boot", "Laravel", ".NET", "Flutter"]
+      }
+    </script>
+
+    <!-- thème et langue appliqués avant l'affichage (évite le clignotement) -->
+    <script>
+      try {
+        var th = localStorage.getItem('portfolio.theme');
+        if (th === 'light') document.documentElement.classList.remove('dark');
+        var lg = localStorage.getItem('portfolio.lang');
+        if (lg === 'en' || lg === 'ar') {
+          document.documentElement.lang = lg;
+          document.documentElement.dir = lg === 'ar' ? 'rtl' : 'ltr';
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 2rem; font-family: sans-serif">
+        Mohamed Sami Belknani — Software Engineer. Contact : samikneni89@gmail.com · +216 21 650 382
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
