@@ -48,7 +48,7 @@ export const profile = {
     facebook: '',
   },
 
-  /** Ingénieur ayant collaboré à la réalisation du site (affiché en bas de page). */
+  /** Co-concepteur de DentiCab Pro (cité dans la section DentiCab Pro). */
   collaborator: {
     name: 'Hamza Saadouna',
     role: { fr: 'ingénieur en génie informatique', en: 'computer engineer', ar: 'مهندس في الهندسة الإعلامية' } satisfies Localized,

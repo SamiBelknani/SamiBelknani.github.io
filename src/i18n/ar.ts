@@ -145,7 +145,6 @@ export const ar: Dict = {
       tooLong: 'النص طويل جدًا.',
     },
     privacy: 'تُستعمل معلوماتك فقط للرد عليك.',
-    collabTitle: 'بالتعاون مع',
     or: 'أو',
   },
   footer: {
@@ -156,7 +155,6 @@ export const ar: Dict = {
     rights: 'جميع الحقوق محفوظة.',
     madeBy: 'تصميم وتطوير',
     madeByTitle: 'معلومات الاتصال',
-    with: 'بالتعاون مع',
   },
   denticab: {
     nav: 'DentiCab Pro',

@@ -11,7 +11,6 @@ const SOCIALS = [
   { key: 'facebook', label: 'Facebook', Icon: FacebookIcon },
 ] as const
 const YEAR = new Date().getFullYear()
-const collab = profile.collaborator
 
 export function Footer() {
   const { t, l } = useI18n()
@@ -85,32 +84,17 @@ export function Footer() {
           <p>
             © <span dir="ltr">{YEAR}</span> {l(profile.name.full)}. {t.footer.rights}
           </p>
-          <p className="flex flex-col items-center gap-1 sm:block">
-            <span>
-              {t.footer.madeBy}{' '}
-              <a
-                href="#contact"
-                title={t.footer.madeByTitle}
-                className="font-display ms-1 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-primary-2 to-cyan-600 px-3 py-1 text-xs font-bold tracking-wider text-white shadow-[0_6px_18px_-6px_var(--glow)] transition-transform hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-8px_var(--glow)]"
-                dir="ltr"
-              >
-                MSB
-                <ArrowUpRight size={14} aria-hidden />
-              </a>
-            </span>{' '}
-            <span>
-              {t.footer.with} <span className="font-semibold text-fg-2">{collab.name}</span>, {l(collab.role)}
-            </span>
-            <span className="mx-1.5 hidden opacity-50 sm:inline">·</span>
-            <span>
-              <a href={`mailto:${collab.email}`} className="transition-colors hover:text-fg" dir="ltr">
-                {collab.email}
-              </a>
-              <span className="mx-1.5 opacity-50">·</span>
-              <a href={`tel:${collab.phone.value}`} className="whitespace-nowrap transition-colors hover:text-fg" dir="ltr">
-                {collab.phone.display}
-              </a>
-            </span>
+          <p>
+            {t.footer.madeBy}{' '}
+            <a
+              href="#contact"
+              title={t.footer.madeByTitle}
+              className="font-display ms-1 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-primary-2 to-cyan-600 px-3 py-1 text-xs font-bold tracking-wider text-white shadow-[0_6px_18px_-6px_var(--glow)] transition-transform hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-8px_var(--glow)]"
+              dir="ltr"
+            >
+              MSB
+              <ArrowUpRight size={14} aria-hidden />
+            </a>
           </p>
         </div>
       </div>

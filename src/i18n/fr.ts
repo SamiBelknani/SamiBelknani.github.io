@@ -144,7 +144,6 @@ export const fr = {
       tooLong: 'Le texte est trop long.',
     },
     privacy: 'Vos informations servent uniquement à vous répondre.',
-    collabTitle: 'En collaboration avec',
     or: 'ou',
   },
   footer: {
@@ -155,7 +154,6 @@ export const fr = {
     rights: 'Tous droits réservés.',
     madeBy: 'Site réalisé par',
     madeByTitle: 'Voir mes coordonnées',
-    with: 'en collaboration avec',
   },
   denticab: {
     nav: 'DentiCab Pro',

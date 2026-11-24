@@ -60,22 +60,6 @@ export function Contact() {
               </InfoRow>
             </ul>
 
-            {/* ingénieur ayant collaboré à la réalisation du site */}
-            <div className="mt-9 rounded-2xl bg-white/[0.07] p-5 ring-1 ring-white/15">
-              <p className="text-xs font-medium tracking-wide text-white/60 uppercase rtl:tracking-normal">{t.contact.collabTitle}</p>
-              <p className="font-display mt-1.5 text-lg font-semibold">{profile.collaborator.name}</p>
-              <p className="text-sm text-white/70">{l(profile.collaborator.role)}</p>
-              <div className="mt-3 flex flex-col gap-1.5 text-sm">
-                <a href={`mailto:${profile.collaborator.email}`} className="inline-flex items-center gap-2 break-all hover:underline" dir="ltr">
-                  <Mail size={15} aria-hidden className="shrink-0 text-cyan-300" />
-                  {profile.collaborator.email}
-                </a>
-                <a href={`tel:${profile.collaborator.phone.value}`} className="inline-flex items-center gap-2 hover:underline" dir="ltr">
-                  <Phone size={15} aria-hidden className="shrink-0 text-cyan-300" />
-                  {profile.collaborator.phone.display}
-                </a>
-              </div>
-            </div>
           </motion.aside>
 
           <motion.div variants={fadeUp} className="p-6 sm:p-8 md:p-10">
