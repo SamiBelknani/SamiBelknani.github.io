@@ -64,6 +64,10 @@ export const en: Dict = {
     ],
   },
   portfolio: {
+    gallery: 'View screenshots',
+    previous: 'Previous image',
+    next: 'Next image',
+    close: 'Close',
     eyebrow: 'Portfolio',
     title: 'Selected work',
     subtitle: 'A selection of delivered projects, from web to mobile, desktop and AI.',

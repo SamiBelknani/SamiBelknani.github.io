@@ -17,6 +17,8 @@ export interface Project {
   categories: ProjectCategory[]
   /** Capture d'écran (ex. '/projects/medcare.webp' dans public/). Vide : vignette générée. */
   image?: string
+  /** Captures supplémentaires, ouvertes en grand avec « Voir les captures ». */
+  gallery?: { src: string; caption: Localized }[]
   cover: { icon: CoverIcon; from: string; to: string }
   /** Liens affichés uniquement s'ils sont renseignés. */
   github?: string
@@ -64,6 +66,15 @@ export const projects: Project[] = [
     ],
     tech: ['Angular', 'TypeScript', 'Spring Boot', 'Java', 'MySQL', 'Flyway'],
     categories: ['web'],
+    image: '/projects/medcare/accueil.jpg',
+    gallery: [
+      { src: '/projects/medcare/accueil.jpg', caption: { fr: 'Page d’accueil', en: 'Home page', ar: 'الصفحة الرئيسية' } },
+      { src: '/projects/medcare/boutique.jpg', caption: { fr: 'Boutique avec filtres par catégorie', en: 'Shop with category filters', ar: 'المتجر مع التصفية حسب الصنف' } },
+      { src: '/projects/medcare/produit.jpg', caption: { fr: 'Fiche produit : prix, promotion et stock', en: 'Product page: price, promotion and stock', ar: 'صفحة المنتج: السعر والتخفيض والمخزون' } },
+      { src: '/projects/medcare/accueil-denticab.jpg', caption: { fr: 'Mise en avant de DentiCab Pro sur l’accueil', en: 'DentiCab Pro highlighted on the home page', ar: 'إبراز DentiCab Pro في الصفحة الرئيسية' } },
+      { src: '/projects/medcare/denticab.jpg', caption: { fr: 'Page produit DentiCab Pro avec vidéo de démonstration', en: 'DentiCab Pro product page with demo video', ar: 'صفحة DentiCab Pro مع فيديو العرض' } },
+      { src: '/projects/medcare/mobile.jpg', caption: { fr: 'Version mobile', en: 'Mobile version', ar: 'نسخة الجوّال' } },
+    ],
     cover: { icon: 'cart', from: '#1d4ed8', to: '#06b6d4' },
     privateCode: true,
     year: '2026',

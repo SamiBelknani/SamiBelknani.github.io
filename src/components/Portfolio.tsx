@@ -1,10 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Check, Code2, ExternalLink, ImageIcon, Lock, PlayCircle, RadioTower, ShoppingCart, Stethoscope, Users, UtensilsCrossed } from 'lucide-react'
+import { Check, Code2, ExternalLink, ImageIcon, Images, Lock, PlayCircle, RadioTower, ShoppingCart, Stethoscope, Users, UtensilsCrossed } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { projects, type CoverIcon, type Project, type ProjectCategory } from '../config/projects'
 import { useI18n } from '../i18n/context'
 import { EASE } from '../lib/motion'
 import { GitHubIcon } from './ui/BrandIcons'
+import { Lightbox } from './ui/Lightbox'
 import { SectionHeader } from './ui/SectionHeader'
 
 type Filter = 'all' | ProjectCategory
@@ -70,6 +71,8 @@ export function Portfolio() {
 
 function ProjectCard({ project: p, index, featured = false }: { project: Project; index: number; featured?: boolean }) {
   const { t, l } = useI18n()
+  const [zoom, setZoom] = useState<number | null>(null)
+  const gallery = (p.gallery ?? []).map((g) => ({ src: g.src, caption: l(g.caption) }))
   return (
     <motion.li
       layout
@@ -80,7 +83,7 @@ function ProjectCard({ project: p, index, featured = false }: { project: Project
       transition={{ duration: 0.55, ease: EASE, delay: (index % 3) * 0.07 }}
       className={`card card-hover group flex flex-col overflow-hidden ${featured ? 'md:col-span-2 md:grid md:grid-cols-[1.05fr_1fr]' : ''}`}
     >
-      <ProjectCover project={p} featured={featured} />
+      <ProjectCover project={p} featured={featured} onOpen={gallery.length ? () => setZoom(0) : undefined} galleryLabel={t.portfolio.gallery} />
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-start justify-between gap-3">
           <h3 className="font-display text-xl font-semibold">{p.title}</h3>
@@ -128,6 +131,15 @@ function ProjectCard({ project: p, index, featured = false }: { project: Project
               <span className="sr-only">({t.ui.newTab})</span>
             </a>
           )}
+          {gallery.length > 0 && (
+            <button type="button" onClick={() => setZoom(0)} className="btn btn-ghost min-h-10 px-4 text-sm">
+              <Images size={16} aria-hidden />
+              {t.portfolio.gallery}
+              <span className="text-xs text-muted" dir="ltr">
+                ({gallery.length})
+              </span>
+            </button>
+          )}
           {!p.github && p.privateCode && (
             <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted">
               <Lock size={14} aria-hidden />
@@ -136,24 +148,49 @@ function ProjectCard({ project: p, index, featured = false }: { project: Project
           )}
         </div>
       </div>
+      {gallery.length > 0 && (
+        <Lightbox
+          images={gallery}
+          index={zoom}
+          onClose={() => setZoom(null)}
+          onChange={setZoom}
+          labels={{ close: t.portfolio.close, previous: t.portfolio.previous, next: t.portfolio.next }}
+        />
+      )}
     </motion.li>
   )
 }
 
-function ProjectCover({ project: p, featured = false }: { project: Project; featured?: boolean }) {
+function ProjectCover(props: { project: Project; featured?: boolean; onOpen?: () => void; galleryLabel: string }) {
+  const { project: p, featured = false, onOpen, galleryLabel } = props
   const { t } = useI18n()
   const Icon = COVER_ICONS[p.cover.icon]
   if (p.image) {
-    return (
-      <div className={`aspect-[16/10] overflow-hidden border-b border-line bg-bg-soft ${featured ? 'md:aspect-auto md:h-full md:border-e md:border-b-0' : ''}`}>
-        <img
-          src={p.image}
-          alt={p.title}
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-        />
-      </div>
+    const img = (
+      <img
+        src={p.image}
+        alt={p.title}
+        loading="lazy"
+        decoding="async"
+        className={`h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04] ${
+          featured ? 'md:aspect-[16/10] md:h-auto md:rounded-xl md:shadow-[0_24px_50px_-20px_rgba(0,0,0,0.6)] md:ring-1 md:ring-white/10' : ''
+        }`}
+      />
+    )
+    // carte mise en avant : capture entière encadrée (sans rognage) sur un fond dégradé
+    const box = `relative block aspect-[16/10] w-full overflow-hidden border-b border-line bg-bg-soft ${
+      featured ? 'md:flex md:aspect-auto md:h-full md:min-h-80 md:items-center md:border-e md:border-b-0 md:p-6 md:[background:linear-gradient(135deg,#1d4ed8,#0891b2)]' : ''
+    }`
+    return onOpen ? (
+      <button type="button" onClick={onOpen} aria-label={`${galleryLabel} — ${p.title}`} className={`${box} cursor-zoom-in`}>
+        {img}
+        <span className="absolute end-3 bottom-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur">
+          <Images size={12} aria-hidden />
+          {galleryLabel}
+        </span>
+      </button>
+    ) : (
+      <div className={box}>{img}</div>
     )
   }
   return (

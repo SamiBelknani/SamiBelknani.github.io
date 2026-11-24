@@ -63,6 +63,10 @@ export const fr = {
     ],
   },
   portfolio: {
+    gallery: 'Voir les captures',
+    previous: 'Image précédente',
+    next: 'Image suivante',
+    close: 'Fermer',
     eyebrow: 'Portfolio',
     title: 'Réalisations',
     subtitle: 'Une sélection de projets réalisés, du web au mobile en passant par le desktop et l’IA.',
