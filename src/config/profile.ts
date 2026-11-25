@@ -25,7 +25,7 @@ export const profile = {
    * Photo de profil : déposez votre photo dans le dossier public/ (ex. public/profile.jpg, format carré, 800 px)
    * puis indiquez son chemin ici : photo: '/profile.jpg'. Laissez vide pour afficher le monogramme.
    */
-  photo: '',
+  photo: '/profile.jpg',
 
   email: 'samikneni89@gmail.com',
   /** Numéros au format international, sans espaces (utilisés pour les liens tel:). */
