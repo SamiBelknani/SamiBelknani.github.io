@@ -86,7 +86,7 @@ Le site est entièrement statique : il suffit de publier le dossier `dist/` prod
 
 Une fois l'adresse définitive connue :
 - renseignez `siteUrl` dans `src/config/profile.ts` ;
-- dans `index.html`, remplacez `/og-image.png` par l'adresse complète (par exemple `https://votre-domaine.tn/og-image.png`) pour que l'aperçu fonctionne sur les réseaux sociaux.
+- dans `index.html`, remplacez `/og-image-sami-belknani.png` par l'adresse complète (par exemple `https://votre-domaine.tn/og-image-sami-belknani.png`) pour que l'aperçu fonctionne sur les réseaux sociaux.
 
 ## Accessibilité et performances
 
